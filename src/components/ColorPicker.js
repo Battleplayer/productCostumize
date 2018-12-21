@@ -12,20 +12,12 @@ import './ColorPicker.css';
 
 const colors = ['#ff0000', '#00ff00', '#0000ff', '#ff8800', '#eeff00'];
 
-class ColorPicker extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            scaleValue: props.scaleValue,
-            rotateValue: props.rotateValue,
-            horValue: props.horValue,
-            vertValue: props.vertValue,
-        };
-    }
-
-    render() {
-        const {onChange, onClick, TieColor, onImageSet} = this.props;
+// class ColorPicker extends Component {
+//
+//     render() {
+export default (props) => {
+        const {onChange, onClick, TieColor, onImageSet, getScale, getRotate, isImported} = props;
+        // console.log(this.props);
         return (
             <div style={{flex: 1}}>
                 <h3>Design your tie</h3>
@@ -37,23 +29,24 @@ class ColorPicker extends Component {
                         <AccordionItemBody>
                             <div>
                                 <input type="range" name="scale"
-                                       min="0" max="0" value={this.scaleValue} step='0.1'
-                                onChange={console.log('1')}/>
+                                       min="0" max="1" defaultValue={0.5} step='0.1'
+                                       onChange={getScale}/>
                                 <label htmlFor="scale">Scale</label>
                             </div>
                             <div>
                                 <input type="range" name="Rotate"
-                                       min="0" max="10" value={this.rotateValue} step='1'/>
+                                       min="0" max="360" defaultValue={180} step='18'
+                                       onChange={getRotate}/>
                                 <label htmlFor="Rotate">Rotate</label>
                             </div>
                             <div>
                                 <input type="range" name="Horizontal"
-                                       min="0" max="10" value={this.horValue} step='1'/>
+                                       min="0" max="100" defaultValue={50} step='10'/>
                                 <label htmlFor="Horizontal">Horizontal</label>
                             </div>
                             <div>
                                 <input type="range" name="Vertical"
-                                       min="0" max="10" value={this.vertValue} step='1'/>
+                                       min="0" max="50" defaultValue={25} step='7'/>
                                 <label htmlFor="Vertical">Vertical</label>
                             </div>
                         </AccordionItemBody>
@@ -90,14 +83,34 @@ class ColorPicker extends Component {
                             <h3>Upload your image</h3>
                         </AccordionItemTitle>
                         <AccordionItemBody>
-                            <input type="file" accept="image/*" onChange={onImageSet}/>
+                            <p><input type="file" accept="image/*" onChange={onImageSet}/></p>
+                            {isImported ?
+                                <div>
+                                    FINISH WITH PIC
+                                    <div>
+                                        <input type="range" name="Rotate"
+                                               min="0" max="360" defaultValue={180} step='18'
+                                               onChange={getRotate}/>
+                                        <label htmlFor="Rotate">Rotate</label>
+                                    </div>
+                                    <div>
+                                        <input type="range" name="Horizontal"
+                                               min="0" max="100" defaultValue={50} step='10'/>
+                                        <label htmlFor="Horizontal">Horizontal</label>
+                                    </div>
+                                    <div>
+                                        <input type="range" name="Vertical"
+                                               min="0" max="50" defaultValue={25} step='7'/>
+                                        <label htmlFor="Vertical">Vertical</label>
+                                    </div>
+                                </div> : ''}
                         </AccordionItemBody>
                     </AccordionItem>
                 </Accordion>
 
             </div>
         )
-    }
+    // }
 }
 
-export default ColorPicker;
+// export default ColorPicker;

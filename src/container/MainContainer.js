@@ -11,8 +11,11 @@ class MainContainer extends Component {
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
         this.onImageSet = this.onImageSet.bind(this);
+        this.backgroundScale = this.backgroundScale.bind(this);
+        this.backgroundRotate = this.backgroundRotate.bind(this);
     }
-    onClick = (e)=> {
+
+    onClick = (e) => {
         this.setState({
             TieColor: e.target.style.backgroundColor,
         });
@@ -20,6 +23,8 @@ class MainContainer extends Component {
     onChange = ({target: {value}}) =>
         this.setState({
             TieColor: value,
+            bcgScale: 0.5,
+            bcgRotate: 180
         });
     onImageSet = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -28,21 +33,43 @@ class MainContainer extends Component {
             });
         }
     };
+    backgroundScale = ({target: {value}}) => {
+        this.setState({
+            bcgScale: value
+        });
+    };
+    backgroundRotate = ({target: {value}}) => {
+        this.setState({
+            bcgRotate: value
+        });
+    };
+
     render() {
+        let isImported = false;
         console.log(this.state);
+        if (this.state.image) {
+            isImported = true
+        }
         const mainStyle = {
             display: 'flex',
             flexDirection: 'row'
         };
         return (
             <div style={mainStyle}>
-                <Image color = {this.state.TieColor}
-                    image = {this.state.image}
+                <Image color={this.state.TieColor}
+                       image={this.state.image}
+                       bcgScale = {this.state.bcgScale}
+                       bcgRotate = {this.state.bcgRotate}
+
                 />
                 <ColorPicker TieColor={this.state.TieColor}
-                             onImageSet = {this.onImageSet}
+                             onImageSet={this.onImageSet}
                              onClick={this.onClick}
-                             onChange={this.onChange}/>
+                             onChange={this.onChange}
+                             getScale={this.backgroundScale}
+                             getRotate = {this.backgroundRotate}
+                             isImported={isImported}
+                />
             </div>
         )
     }
