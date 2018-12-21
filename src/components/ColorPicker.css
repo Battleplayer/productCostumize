@@ -112,7 +112,7 @@ input[type=range]:focus::-ms-fill-upper {
     display: block;
     height: 30px;
     width: 30px;
-    border-radius: 2px;
+    border-radius: 50%;
     border: 1px solid transparent;
 }
 
