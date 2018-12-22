@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Image from '../components/Image';
 import ColorPicker from '../components/ColorPicker';
 
-import html2canvas from 'html2canvas';
 
 class MainContainer extends Component {
     constructor(props) {
@@ -14,87 +13,36 @@ class MainContainer extends Component {
             tieX: 30,
             tieY: 70,
             imgRotate: 0,
-            imgX: 280,
-            imgY: 1000,
-            imgScale: 1
+            imgX: 270,
+            imgY: 400,
+            imgScale: 1,
+            image: ''
         };
-        this.onChange = this.onChange.bind(this);
-        this.onColorPickerClick = this.onColorPickerClick.bind(this);
-        this.onImageSet = this.onImageSet.bind(this);
-        this.backgroundScale = this.backgroundScale.bind(this);
-        this.backgroundRotate = this.backgroundRotate.bind(this);
-        this.setTieX = this.setTieX.bind(this);
-        this.setTieY = this.setTieY.bind(this);
-        this.imgRotate = this.imgRotate.bind(this);
-        this.imgX = this.imgX.bind(this);
-        this.imgY = this.imgY.bind(this);
-        this.imgScale = this.imgScale.bind(this);
-        this.saveTie = this.saveTie.bind(this);
     }
 
-    onColorPickerClick = (e) => {
+    //Tie Color
+    pickTieColorHandler = (e) => {
         this.setState({
             TieColor: e.target.style.backgroundColor,
         });
     };
-    onChange = ({target: {value}}) =>
+    setTieColorHandler = ({target: {value}}) =>
         this.setState({
             TieColor: value
         });
-    onImageSet = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            this.setState({
-                image: URL.createObjectURL(event.target.files[0])
-            });
+
+    // Load Image, set styles and save pic
+    imageSetHandler = () => {
+        let filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+            let fileReader = new FileReader();
+            fileReader.onload = function (fileLoadedEvent) {
+                document.getElementById("imgTest").setAttribute('xlink:href', fileLoadedEvent.target.result);
+            };
+            fileReader.readAsDataURL(filesSelected[0]);
         }
-        // let reader = new FileReader();
-        // reader.readAsDataURL(URL.createObjectURL(event.target.files[0]));
-        // reader.onloadend = function() {
-        //     base64data = reader.result;
-        //     console.log(base64data);
-        // }
     };
-    backgroundScale = ({target: {value}}) => {
-        this.setState({
-            bcgScale: value
-        });
-    };
-    backgroundRotate = ({target: {value}}) => {
-        this.setState({
-            bcgRotate: value
-        });
-    };
-    setTieX = ({target: {value}}) => {
-        this.setState({
-            tieX: value
-        });
-    };
-    setTieY = ({target: {value}}) => {
-        this.setState({
-            tieY: value
-        });
-    };
-    imgRotate = ({target: {value}}) => {
-        this.setState({
-            imgRotate: parseInt(value)
-        });
-    };
-    imgX = ({target: {value}}) => {
-        this.setState({
-            imgX: parseInt(value)
-        });
-    };
-    imgY = ({target: {value}}) => {
-        this.setState({
-            imgY: parseInt(value)
-        });
-    };
-    imgScale = ({target: {value}}) => {
-        this.setState({
-            imgScale: parseFloat(value)
-        });
-    };
-    saveTie = () => {
+    saveTieHandler = () => {
         let textToWrite = document.getElementById('image-wrapper').innerHTML;
         let textFileAsBlob = new Blob([textToWrite], {type: 'image/svg+xml'});
         let fileNameToSaveAs = "svg";
@@ -108,34 +56,53 @@ class MainContainer extends Component {
         }
         else {
             downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-         //   downloadLink.onclick = destroyClickedElement;
+            //   downloadLink.onclick = destroyClickedElement;
             downloadLink.style.display = "none";
             document.body.appendChild(downloadLink);
         }
         downloadLink.click();
-        // this.generateScreenshot()
     };
-
-    generateScreenshot() {
-        html2canvas(document.getElementById('tie'), {
-            width: 260,
-            height: 565,
-            scale: 10,
-            logging: true,
-            profile: true,
-            useCORS: true
-        }).then(function (canvas) {
-            //setDPI(canvas, 600);
-            console.log(canvas);
-            var data = canvas.toDataURL('image/png', 0.1);
-            // console.log(data);
-            var src = encodeURI(data);
-            // document.getElementById('screenshot').src = src;
-            document.getElementById('size').innerHTML = src.length + ' bytes';
-            document.getElementById('test').href = data;
-            document.getElementById('test').download = 'atkinsons_' + new Date().toLocaleString() + '.png';
+    setImgRotateAngleHandler = ({target: {value}}) => {
+        this.setState({
+            imgRotate: parseInt(value)
         });
-    }
+    };
+    setImgXHandler = ({target: {value}}) => {
+        this.setState({
+            imgX: parseInt(value)
+        });
+    };
+    setImgYHandler = ({target: {value}}) => {
+        this.setState({
+            imgY: parseInt(value)
+        });
+    };
+    setImgScaleHandler = ({target: {value}}) => {
+        this.setState({
+            imgScale: parseFloat(value)
+        });
+    };
+    /// NEW
+    backgroundScaleHandler = ({target: {value}}) => {
+        this.setState({
+            bcgScale: value
+        });
+    };
+    backgroundRotateHandler = ({target: {value}}) => {
+        this.setState({
+            bcgRotate: value
+        });
+    };
+    bcgXHandler = ({target: {value}}) => {
+        this.setState({
+            tieX: value
+        });
+    };
+    bcgYHandler = ({target: {value}}) => {
+        this.setState({
+            tieY: value
+        });
+    };
 
     render() {
         let isImported = false;
@@ -160,22 +127,22 @@ class MainContainer extends Component {
                        imgScale={this.state.imgScale}
                        imgX={this.state.imgX}
                        imgY={this.state.imgY}
-                       saveTie={this.saveTie}
+                       saveTieHandler={this.saveTieHandler}
                 />
                 <ColorPicker TieColor={this.state.TieColor}
-                             onImageSet={this.onImageSet}
-                             onClick={this.onColorPickerClick}
-                             onChange={this.onChange}
-                             getScale={this.backgroundScale}
-                             getRotate={this.backgroundRotate}
-                             getTieX={this.setTieX}
-                             getTieY={this.setTieY}
-                             imgRotate={this.imgRotate}
-                             imgX={this.imgX}
-                             imgY={this.imgY}
-                             imgScale={this.imgScale}
+                             imageSetHandler={this.imageSetHandler}
+                             pickTieColorHandler={this.pickTieColorHandler}
+                             setTieColorHandler={this.setTieColorHandler}
+                             backgroundScaleHandler={this.backgroundScaleHandler}
+                             backgroundRotateHandler={this.backgroundRotateHandler}
+                             bcgXHandler={this.bcgXHandler}
+                             bcgYHandler={this.bcgYHandler}
+                             setImgRotateAngle={this.setImgRotateAngleHandler}
+                             setImgXHandler={this.setImgXHandler}
+                             setImgYHandler={this.setImgYHandler}
+                             setImgScale={this.setImgScaleHandler}
 
-                             isImported={isImported}
+                             isImported={!isImported}
                 />
             </div>
         )

@@ -1,7 +1,8 @@
 <svg
-     x="0px" y="0px" width="674" height="1466" viewBox="0 0 674 1466"
+     x="0px" y="0px" width="674" height="1466"
      xmlns="http://www.w3.org/2000/svg"
-     xml:space="preserve">
+     xmlnsXlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 674 1466">
     <pattern id="poupat" width="71.39" height="44.93"
      patternUnits="userSpaceOnUse" viewBox="0 0 71.39 44.93" overflow="visible"
                                    original-pattern-transform="(empty)"
