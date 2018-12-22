@@ -15,11 +15,10 @@ const colors = ['#382E2C', '#545876', '#53565A', '#C1A0DA', '#857874', '#A51890'
 export default (props) => {
     const {
         isImported, TieColor,
-        setTieColorHandler, pickTieColorHandler, imageSetHandler,
-        bcgXHandler, bcgYHandler, backgroundScaleHandler, backgroundRotateHandler,
-        setImgXHandler, setImgYHandler, setImgRotateAngle, setImgScale
+        colorPickerHandler, pickTieColorHandler,
+        patternXHandler, patternYHandler, patternScaleHandler, patternRotateHandler, patternColorHandler,
+        imageSetHandler, setImgXHandler, setImgYHandler, setImgRotateAngle, setImgScale
     } = props;
-    // console.log(this.props);
     return (
         <div>
             <div id="image-wrapper">
@@ -34,26 +33,31 @@ export default (props) => {
                                 <label htmlFor="scale">Scale</label>
                                 <input type="range" name="scale"
                                        min="0" max="3" defaultValue={1} step='0.2'
-                                       onChange={backgroundScaleHandler}/>
+                                       onChange={patternScaleHandler}/>
                             </div>
                             <div>
                                 <label htmlFor="Rotate">Rotate</label>
                                 <input type="range" name="Rotate"
                                        min="-180" max="180" defaultValue={0} step='1'
-                                       onChange={backgroundRotateHandler}/>
+                                       onChange={patternRotateHandler}/>
                             </div>
                             <div>
                                 <label htmlFor="Horizontal">Horizontal</label>
                                 <input type="range" name="Horizontal"
-                                       min="0" max="70" defaultValue={30} step='10'
-                                       onChange={bcgXHandler}/>
-
+                                       min="0" max="150" defaultValue={30} step='20'
+                                       onChange={patternXHandler}/>
                             </div>
                             <div>
                                 <label htmlFor="Vertical">Vertical</label>
                                 <input type="range" name="Vertical"
-                                       min="0" max="100" defaultValue={50} step='7'
-                                       onChange={bcgYHandler}/>
+                                       min="0" max="150" defaultValue={50} step='20'
+                                       onChange={patternYHandler}/>
+                            </div>
+                            <div>
+                                <label htmlFor="patternColor">Set pattern color</label>
+                                <input type="color" name="patternColor"
+                                       min="0" max="150" defaultValue={50} step='20'
+                                       onChange={patternColorHandler}/>
                             </div>
                         </AccordionItemBody>
                     </AccordionItem>
@@ -71,7 +75,7 @@ export default (props) => {
                                 ))}
                             </ul>
                             <p>
-                                <input type="color" value={TieColor} onChange={setTieColorHandler}/>
+                                <input type="color" value={TieColor} onChange={colorPickerHandler}/>
                             </p>
                         </AccordionItemBody>
                     </AccordionItem>
@@ -101,7 +105,7 @@ export default (props) => {
                                     <div>
                                         <label htmlFor="RotateImg">Rotate</label>
                                         <input type="range" name="RotateImg"
-                                               min="0" max="360" defaultValue={180} step='18'
+                                               min="-180" max="180" defaultValue={0} step='18'
                                                onChange={setImgRotateAngle}/>
                                     </div>
                                     <div>

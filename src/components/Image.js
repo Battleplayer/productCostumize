@@ -1,42 +1,56 @@
 import React from 'react';
+import Background from '../tie.png'
 
 
 export default (props) => {
     const galstyk = {
-        display: 'inline',
+        // display: 'inline',
         fill: props.color,
-        transform: `rotate(${props.bcgRotate}deg)`
     };
-    const backgroundStyle = {
-        fill: 'green',
-        // rotate(${props.bcgRotate}deg)
-        // scale(${props.bcgScale})
-    };
+    const patternStyle = `matrix(${props.patternScale}, 0, 0, ${props.patternScale}, ${props.patternX},${props.patternY}) 
+    rotate(${props.patternRotate} 1 1)`
+    ;
     const imageStyle = {
-        zIndex: 1,
-        transform: ` scale(${props.imgScale})`,
-        // transform: `matrix(1,0,0,${props.imgScale},${props.imgX},${props.imgY})`
+        transform: `rotate(${props.imgRotateAngle}deg) scale(${props.imgScale})`,
+        transformBox: 'fill-box',
+
     };
-    const imageWrapper = {
-        height: '565px', width: '265px'
+    const tieWrapper = {
+        position: 'relative',
+        width: '260px',
+        height: '565px',
+        zIndex: 50,
+        left: '75px'
     };
-    const pattt = `rotate(${props.imgRotate} ${props.imgX - 64} ${props.imgY - 73})`;
+    const tieWrap = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '260px',
+        height: '565px',
+        zIndex: 50,
+        background: `url(${Background}) center center no-repeat`
+    };
+
     return (
         <div>
-            <div style={imageWrapper} id='image-wrapper'>
-                <svg version="1.1" x="0px" y="0px" width="377" height="733"
+            <div id='image-wrapper' style={tieWrapper}>
+                <svg version="1.1" x="0px" y="0px" width="260" height="565"
                      xmlns="http://www.w3.org/2000/svg"
                      xmlnsXlink="http://www.w3.org/1999/xlink"
                      viewBox="0 0 674 1466">
                     <pattern id="poupat" width="71.39" height="44.93" patternUnits="userSpaceOnUse"
+                             patternContentUnits="objectBoundingBox"
+                             patternTransform={patternStyle}
                              viewBox="0 0 71.39 44.93"
+                             stroke='red'
                              overflow="visible">
                         <g transform="translate(0,50)"
                            x='10'>
-                            <path
-                                style={backgroundStyle}
-                                d="M20.71,0v-2.75H9.47v-0.08c1.28-1.09,2.19-2.45,2.6-4.07c0.34-1.36,0.26-2.79,0.15-4.22h5.09v-2.38h-5.39c-0.23-1.21-0.42-2.41-0.42-4.04c0-2.68,1.17-4.72,4.11-4.72c1.58,0,2.72,0.38,3.4,0.75l0.72-2.49c-0.79-0.49-2.15-0.94-4.11-0.94c-4.19,0-7.24,2.9-7.24,7.36c0,1.47,0.23,2.94,0.41,4.07H5.28v2.38h3.85c0.15,0.98,0.19,1.74,0.19,2.64c0,2.83-1.74,5.32-4.3,6.6V0H20.71z M20.71-44.93v-2.75H9.47v-0.08c1.28-1.09,2.19-2.45,2.6-4.07c0.34-1.36,0.26-2.79,0.15-4.22h5.09v-2.38h-5.39c-0.23-1.21-0.42-2.41-0.42-4.04c0-2.68,1.17-4.72,4.11-4.72c1.58,0,2.72,0.38,3.4,0.75l0.72-2.49c-0.79-0.49-2.15-0.94-4.11-0.94c-4.19,0-7.24,2.9-7.24,7.36c0,1.47,0.23,2.94,0.41,4.07H5.28v2.38h3.85c0.15,0.98,0.19,1.74,0.19,2.64c0,2.83-1.74,5.32-4.3,6.6v1.89H20.71z"/>
-                            <path style={backgroundStyle}
+                            <path style={{fill: `${props.patternColor}`}}
+                                  d="M20.71,0v-2.75H9.47v-0.08c1.28-1.09,2.19-2.45,2.6-4.07c0.34-1.36,0.26-2.79,0.15-4.22h5.09v-2.38h-5.39c-0.23-1.21-0.42-2.41-0.42-4.04c0-2.68,1.17-4.72,4.11-4.72c1.58,0,2.72,0.38,3.4,0.75l0.72-2.49c-0.79-0.49-2.15-0.94-4.11-0.94c-4.19,0-7.24,2.9-7.24,7.36c0,1.47,0.23,2.94,0.41,4.07H5.28v2.38h3.85c0.15,0.98,0.19,1.74,0.19,2.64c0,2.83-1.74,5.32-4.3,6.6V0H20.71z M20.71-44.93v-2.75H9.47v-0.08c1.28-1.09,2.19-2.45,2.6-4.07c0.34-1.36,0.26-2.79,0.15-4.22h5.09v-2.38h-5.39c-0.23-1.21-0.42-2.41-0.42-4.04c0-2.68,1.17-4.72,4.11-4.72c1.58,0,2.72,0.38,3.4,0.75l0.72-2.49c-0.79-0.49-2.15-0.94-4.11-0.94c-4.19,0-7.24,2.9-7.24,7.36c0,1.47,0.23,2.94,0.41,4.07H5.28v2.38h3.85c0.15,0.98,0.19,1.74,0.19,2.64c0,2.83-1.74,5.32-4.3,6.6v1.89H20.71z"/>
+                            <path style={{fill: `${props.patternColor}`}}
                                   d="M56.41-22.47v-2.75H45.16v-0.08c1.28-1.09,2.19-2.45,2.6-4.07c0.34-1.36,0.26-2.79,0.15-4.22h5.09v-2.38h-5.39c-0.23-1.21-0.42-2.41-0.42-4.04c0-2.68,1.17-4.72,4.11-4.72c1.58,0,2.72,0.38,3.4,0.75l0.72-2.49c-0.79-0.49-2.15-0.94-4.11-0.94c-4.19,0-7.24,2.9-7.24,7.36c0,1.47,0.23,2.94,0.41,4.07h-3.51v2.38h3.85c0.15,0.98,0.19,1.74,0.19,2.64c0,2.83-1.74,5.32-4.3,6.6v1.89H56.41z"/>
                         </g>
                     </pattern>
@@ -57,14 +71,13 @@ export default (props) => {
                         <g clipPath="url(#str301BRmask_1_)">
                             <image width="128" height="146" clipPath="url(#myClip)"
                                    style={imageStyle} id="imgTest"
-                                   transform={pattt}
                                    x={props.imgX} y={props.imgY}
                                    xlinkHref=''
-
                             />
                         </g>
                     </g>
                 </svg>
+                <div style={tieWrap}/>
                 {/*<svg version="1.1" x="0px" y="0px" width="377" height="733"*/}
                 {/*xmlns="http://www.w3.org/2000/svg" viewBox="0 0 674 1466"*/}
                 {/*xmlnsXlink="http://www.w3.org/1999/xlink"*/}

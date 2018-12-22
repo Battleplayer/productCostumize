@@ -7,12 +7,13 @@ class MainContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            TieColor: 'blue',
-            bcgScale: 1,
-            bcgRotate: 0,
-            tieX: 30,
-            tieY: 70,
-            imgRotate: 0,
+            TieColor: '#0000ff',
+            patternScale: 1,
+            patternRotate: 0,
+            patternX: 30,
+            patternY: 70,
+            patternColor: '#aaaa0a',
+            imgRotateAngle: 0,
             imgX: 270,
             imgY: 400,
             imgScale: 1,
@@ -26,7 +27,7 @@ class MainContainer extends Component {
             TieColor: e.target.style.backgroundColor,
         });
     };
-    setTieColorHandler = ({target: {value}}) =>
+    colorPickerHandler = ({target: {value}}) =>
         this.setState({
             TieColor: value
         });
@@ -45,8 +46,7 @@ class MainContainer extends Component {
     saveTieHandler = () => {
         let textToWrite = document.getElementById('image-wrapper').innerHTML;
         let textFileAsBlob = new Blob([textToWrite], {type: 'image/svg+xml'});
-        let fileNameToSaveAs = "svg";
-        console.log(textToWrite);
+        let fileNameToSaveAs = "tie";
 
         let downloadLink = document.createElement("a");
         downloadLink.download = fileNameToSaveAs;
@@ -64,7 +64,7 @@ class MainContainer extends Component {
     };
     setImgRotateAngleHandler = ({target: {value}}) => {
         this.setState({
-            imgRotate: parseInt(value)
+            imgRotateAngle: parseInt(value)
         });
     };
     setImgXHandler = ({target: {value}}) => {
@@ -83,30 +83,34 @@ class MainContainer extends Component {
         });
     };
     /// NEW
-    backgroundScaleHandler = ({target: {value}}) => {
+    patternScaleHandler = ({target: {value}}) => {
         this.setState({
-            bcgScale: value
+            patternScale: value
         });
     };
-    backgroundRotateHandler = ({target: {value}}) => {
+    patternRotateHandler = ({target: {value}}) => {
         this.setState({
-            bcgRotate: value
+            patternRotate: value
         });
     };
-    bcgXHandler = ({target: {value}}) => {
+    patternXHandler = ({target: {value}}) => {
         this.setState({
-            tieX: value
+            patternX: value
         });
     };
-    bcgYHandler = ({target: {value}}) => {
+    patternYHandler = ({target: {value}}) => {
         this.setState({
-            tieY: value
+            patternY: value
+        });
+    };
+    patternColorHandler = ({target: {value}}) => {
+        this.setState({
+            patternColor: value
         });
     };
 
     render() {
         let isImported = false;
-        console.log(this.state);
         if (this.state.image) {
             isImported = true
         }
@@ -119,11 +123,12 @@ class MainContainer extends Component {
             <div style={mainStyle}>
                 <Image color={this.state.TieColor}
                        image={this.state.image}
-                       bcgScale={this.state.bcgScale}
-                       bcgRotate={this.state.bcgRotate}
-                       tieX={this.state.tieX}
-                       tieY={this.state.tieY}
-                       imgRotate={this.state.imgRotate}
+                       patternScale={this.state.patternScale}
+                       patternRotate={this.state.patternRotate}
+                       patternX={this.state.patternX}
+                       patternY={this.state.patternY}
+                       patternColor={this.state.patternColor}
+                       imgRotateAngle={this.state.imgRotateAngle}
                        imgScale={this.state.imgScale}
                        imgX={this.state.imgX}
                        imgY={this.state.imgY}
@@ -132,16 +137,16 @@ class MainContainer extends Component {
                 <ColorPicker TieColor={this.state.TieColor}
                              imageSetHandler={this.imageSetHandler}
                              pickTieColorHandler={this.pickTieColorHandler}
-                             setTieColorHandler={this.setTieColorHandler}
-                             backgroundScaleHandler={this.backgroundScaleHandler}
-                             backgroundRotateHandler={this.backgroundRotateHandler}
-                             bcgXHandler={this.bcgXHandler}
-                             bcgYHandler={this.bcgYHandler}
+                             colorPickerHandler={this.colorPickerHandler}
+                             patternScaleHandler={this.patternScaleHandler}
+                             patternRotateHandler={this.patternRotateHandler}
+                             patternXHandler={this.patternXHandler}
+                             patternYHandler={this.patternYHandler}
                              setImgRotateAngle={this.setImgRotateAngleHandler}
                              setImgXHandler={this.setImgXHandler}
                              setImgYHandler={this.setImgYHandler}
                              setImgScale={this.setImgScaleHandler}
-
+                             patternColorHandler={this.patternColorHandler}
                              isImported={!isImported}
                 />
             </div>

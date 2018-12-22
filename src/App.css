@@ -1,3 +1,4 @@
 #imgTest {
   transform-origin: center center;
+  z-index: 1;
 }
