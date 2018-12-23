@@ -1,0 +1,20 @@
+#imgTest {
+    transform-origin: center center;
+    z-index: 1;
+}
+#image-wrapper{
+    position: relative;
+    width: 260px;
+    height: 565px;
+    z-index: 50;
+    left: 75px;
+}
+#tieWrap{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    height: 565px;
+    z-index: 50;
+}

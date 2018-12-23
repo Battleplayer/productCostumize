@@ -7,7 +7,7 @@ class MainContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            TieColor: '#0000ff',
+            tieColor: '#0000ff',
             patternScale: 1,
             patternRotate: 0,
             patternX: 30,
@@ -22,14 +22,9 @@ class MainContainer extends Component {
     }
 
     //Tie Color
-    pickTieColorHandler = (e) => {
+    colorPickerHandler = (color) =>
         this.setState({
-            TieColor: e.target.style.backgroundColor,
-        });
-    };
-    colorPickerHandler = ({target: {value}}) =>
-        this.setState({
-            TieColor: value
+            tieColor: color.hex
         });
 
     // Load Image, set styles and save pic
@@ -47,7 +42,6 @@ class MainContainer extends Component {
         let textToWrite = document.getElementById('image-wrapper').innerHTML;
         let textFileAsBlob = new Blob([textToWrite], {type: 'image/svg+xml'});
         let fileNameToSaveAs = "tie";
-
         let downloadLink = document.createElement("a");
         downloadLink.download = fileNameToSaveAs;
         downloadLink.innerHTML = "Download File";
@@ -56,7 +50,6 @@ class MainContainer extends Component {
         }
         else {
             downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-            //   downloadLink.onclick = destroyClickedElement;
             downloadLink.style.display = "none";
             document.body.appendChild(downloadLink);
         }
@@ -82,7 +75,7 @@ class MainContainer extends Component {
             imgScale: parseFloat(value)
         });
     };
-    /// NEW
+    /// Pattern
     patternScaleHandler = ({target: {value}}) => {
         this.setState({
             patternScale: value
@@ -110,18 +103,15 @@ class MainContainer extends Component {
     };
 
     render() {
-        let isImported = false;
-        if (this.state.image) {
-            isImported = true
-        }
         const mainStyle = {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around'
         };
         return (
+
             <div style={mainStyle}>
-                <Image color={this.state.TieColor}
+                <Image tieColor={this.state.tieColor}
                        image={this.state.image}
                        patternScale={this.state.patternScale}
                        patternRotate={this.state.patternRotate}
@@ -134,9 +124,8 @@ class MainContainer extends Component {
                        imgY={this.state.imgY}
                        saveTieHandler={this.saveTieHandler}
                 />
-                <ColorPicker TieColor={this.state.TieColor}
+                <ColorPicker tieColor={this.state.tieColor}
                              imageSetHandler={this.imageSetHandler}
-                             pickTieColorHandler={this.pickTieColorHandler}
                              colorPickerHandler={this.colorPickerHandler}
                              patternScaleHandler={this.patternScaleHandler}
                              patternRotateHandler={this.patternRotateHandler}
@@ -147,7 +136,6 @@ class MainContainer extends Component {
                              setImgYHandler={this.setImgYHandler}
                              setImgScale={this.setImgScaleHandler}
                              patternColorHandler={this.patternColorHandler}
-                             isImported={!isImported}
                 />
             </div>
         )
