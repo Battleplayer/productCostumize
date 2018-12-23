@@ -75,6 +75,7 @@ class MainContainer extends Component {
             imgScale: parseFloat(value)
         });
     };
+
     /// Pattern
     patternScaleHandler = ({target: {value}}) => {
         this.setState({
@@ -96,9 +97,9 @@ class MainContainer extends Component {
             patternY: value
         });
     };
-    patternColorHandler = ({target: {value}}) => {
+    patternColorHandler = (color) => {
         this.setState({
-            patternColor: value
+            patternColor: color.hex
         });
     };
 
@@ -109,7 +110,6 @@ class MainContainer extends Component {
             justifyContent: 'space-around'
         };
         return (
-
             <div style={mainStyle}>
                 <Image tieColor={this.state.tieColor}
                        image={this.state.image}
@@ -125,17 +125,18 @@ class MainContainer extends Component {
                        saveTieHandler={this.saveTieHandler}
                 />
                 <ColorPicker tieColor={this.state.tieColor}
-                             imageSetHandler={this.imageSetHandler}
                              colorPickerHandler={this.colorPickerHandler}
                              patternScaleHandler={this.patternScaleHandler}
                              patternRotateHandler={this.patternRotateHandler}
                              patternXHandler={this.patternXHandler}
                              patternYHandler={this.patternYHandler}
+                             patternColorHandler={this.patternColorHandler}
+                             patternColor={this.state.patternColor}
                              setImgRotateAngle={this.setImgRotateAngleHandler}
                              setImgXHandler={this.setImgXHandler}
                              setImgYHandler={this.setImgYHandler}
                              setImgScale={this.setImgScaleHandler}
-                             patternColorHandler={this.patternColorHandler}
+                             imageSetHandler={this.imageSetHandler}
                 />
             </div>
         )

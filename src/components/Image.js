@@ -22,7 +22,6 @@ export default (props) => {
                              patternContentUnits="objectBoundingBox"
                              patternTransform={patternStyle}
                              viewBox="0 0 71.39 44.93"
-                             stroke='red'
                              overflow="visible">
                         <g transform="translate(0,50)"
                            x='10'>

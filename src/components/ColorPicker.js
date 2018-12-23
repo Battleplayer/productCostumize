@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    Accordion,
-    AccordionItem,
-    AccordionItemTitle,
-    AccordionItemBody,
-} from 'react-accessible-accordion';
+import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody} from 'react-accessible-accordion';
 import {CirclePicker, ChromePicker} from 'react-color';
 
 import 'react-accessible-accordion/dist/fancy-example.css';
@@ -14,7 +9,7 @@ import './ColorPicker.css';
 export default (props) => {
     const {
         tieColor, colorPickerHandler,
-        patternXHandler, patternYHandler, patternScaleHandler, patternRotateHandler, patternColorHandler,
+        patternXHandler, patternYHandler, patternScaleHandler, patternRotateHandler, patternColorHandler, patternColor,
         imageSetHandler, setImgXHandler, setImgYHandler, setImgRotateAngle, setImgScale
     } = props;
 
@@ -31,7 +26,7 @@ export default (props) => {
                             <div>
                                 <label htmlFor="scale">Scale</label>
                                 <input type="range" name="scale"
-                                       min="0" max="3" defaultValue={1} step='0.2'
+                                       min="0" max="3" defaultValue={1.5} step='0.2'
                                        onChange={patternScaleHandler}/>
                             </div>
                             <div>
@@ -43,18 +38,18 @@ export default (props) => {
                             <div>
                                 <label htmlFor="Horizontal">Horizontal</label>
                                 <input type="range" name="Horizontal"
-                                       min="0" max="150" defaultValue={30} step='20'
+                                       min="0" max="300" defaultValue={150} step='20'
                                        onChange={patternXHandler}/>
                             </div>
                             <div>
                                 <label htmlFor="Vertical">Vertical</label>
                                 <input type="range" name="Vertical"
-                                       min="0" max="150" defaultValue={50} step='20'
+                                       min="0" max="300" defaultValue={150} step='20'
                                        onChange={patternYHandler}/>
                             </div>
                             <div>
                                 <label htmlFor="patternColor">Set pattern color</label>
-                                <ChromePicker onChange={patternColorHandler}/>
+                                <ChromePicker color={patternColor} onChange={patternColorHandler}/>
                             </div>
                         </AccordionItemBody>
                     </AccordionItem>
@@ -99,13 +94,13 @@ export default (props) => {
                             <div>
                                 <label htmlFor="HorizontalImg">Horizontal</label>
                                 <input type="range" name="HorizontalImg"
-                                       min="-100" max="700" defaultValue={270} step='15'
+                                       min="-100" max="700" defaultValue={300} step='15'
                                        onChange={setImgXHandler}/>
                             </div>
                             <div>
                                 <label htmlFor="VerticalImg">Vertical</label>
                                 <input type="range" name="VerticalImg"
-                                       min="0" max="1400" defaultValue={400} step='75'
+                                       min="0" max="1400" defaultValue={700} step='75'
                                        onChange={setImgYHandler}/>
                             </div>
                         </AccordionItemBody>
